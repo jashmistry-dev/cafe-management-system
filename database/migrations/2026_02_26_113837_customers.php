@@ -6,19 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        //
+        Schema::create('customers', function (Blueprint $table) {
+
+            $table->id(); // Primary key
+
+            $table->string('name'); // Customer name for invoice display
+
+            $table->string('mobile', 15)->unique(); 
+            // Unique because this is the business identity for repeat customers
+
+            $table->timestamps(); 
+            // Needed for analytics like "new customers this month"
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('customers');
     }
 };
