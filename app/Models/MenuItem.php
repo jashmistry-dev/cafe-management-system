@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class MenuItem extends Model
 {
     //
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'price',
+        'category_id',
+        'is_available'
+    ];
 
     public function category()
     {
@@ -19,3 +24,4 @@ class MenuItem extends Model
         return $this->hasMany(OrderItem::class);
     }
 }
+
