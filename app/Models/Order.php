@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     //
-    protected $fillable = [];
+
+    protected $fillable = [
+    'table_id',
+    'status'
+];
 
     public function table()
     {
