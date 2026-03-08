@@ -1,3 +1,7 @@
+@extends('admin.layout')
+
+@section('content')
+
 <h2>Edit Category</h2>
 
 <form method="POST" action="{{ route('categories.update', $category->id) }}">
@@ -8,3 +12,6 @@
 
     <button type="submit">Update</button>
 </form>
+
+
+@endsection

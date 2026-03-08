@@ -9,6 +9,9 @@ use App\Http\Controllers\Customer\OrderController;
 
 use App\Http\Controllers\Staff\OrderController as StaffOrderController;
 
+use App\Http\Controllers\Admin\TableController;
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -43,3 +46,15 @@ Route::prefix('staff')->group(function () {
 });
 
 Route::get('/order/{order}', [OrderController::class, 'status'])->name('order.status');
+
+//For auto updating order status to customer
+Route::get('/order/{order}/status',[OrderController::class,'checkStatus']);
+
+//for table crud
+
+Route::prefix('admin')->group(function () {
+
+    Route::resource('tables', TableController::class);
+
+});
+

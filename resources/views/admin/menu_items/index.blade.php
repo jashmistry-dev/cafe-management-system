@@ -1,3 +1,7 @@
+@extends('admin.layout')
+
+@section('content')
+
 <h1>Menu Items</h1>
 
 <a href="{{ route('menu-items.create') }}">Add Menu Item</a>
@@ -32,3 +36,6 @@
 @endforeach
 
 </table>
+
+
+@endsection

@@ -1,3 +1,8 @@
+
+@extends('admin.layout')
+
+@section('content')
+
 <h2>Edit Menu Item</h2>
 
 <form method="POST" action="{{ route('menu-items.update', $menuItem->id) }}">
@@ -31,3 +36,6 @@
     <button type="submit">Update Item</button>
 
 </form>
+
+
+@endsection

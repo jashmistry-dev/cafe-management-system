@@ -1,3 +1,7 @@
+@extends('admin.layout')
+
+@section('content')
+
 <h1>Categories Page</h1>
 
 <a href="{{ route('categories.create') }}">Add Category</a>
@@ -28,3 +32,5 @@
     </tr>
     @endforeach
 </table>
+
+@endsection

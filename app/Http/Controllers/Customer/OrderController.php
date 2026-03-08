@@ -47,4 +47,11 @@ class OrderController extends Controller
     {
         return view('customer.order-status', compact('order'));
     }
+
+    public function checkStatus(Order $order)
+    {
+        return response()->json([
+            'status' => $order->status
+        ]);
+    }
 }

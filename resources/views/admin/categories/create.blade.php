@@ -1,3 +1,7 @@
+@extends('admin.layout')
+
+@section('content')
+
 <h2>Create Category</h2>
 
 <form method="POST" action="{{ route('categories.store') }}">
@@ -11,3 +15,6 @@
     <button type="submit">Save Category</button>
 
 </form>
+
+
+@endsection

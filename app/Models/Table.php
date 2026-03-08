@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Table extends Model
 {
-    //
-    protected $fillable = [];
+    protected $fillable = [
+        'table_number'
+    ];
 
     public function orders()
-{
-    return $this->hasMany(Order::class);
-}
+    {
+        return $this->hasMany(Order::class);
+    }
 }

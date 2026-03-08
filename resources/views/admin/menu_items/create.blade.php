@@ -1,3 +1,7 @@
+@extends('admin.layout')
+
+@section('content')
+
 <h2>Add Menu Item</h2>
 
 <form method="POST" action="{{ route('menu-items.store') }}">
@@ -29,3 +33,6 @@
     <button type="submit">Save Item</button>
 
 </form>
+
+
+@endsection
