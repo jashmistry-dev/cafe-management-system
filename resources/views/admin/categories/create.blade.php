@@ -1,31 +1,13 @@
-<h2>Add Menu Item</h2>
+<h2>Create Category</h2>
 
-<form method="POST" action="{{ route('menu-items.store') }}">
+<form method="POST" action="{{ route('categories.store') }}">
     @csrf
 
-    <label>Name</label>
+    <label>Category Name</label>
     <input type="text" name="name">
 
     <br><br>
 
-    <label>Price</label>
-    <input type="number" name="price">
-
-    <br><br>
-
-    <label>Category</label>
-    <select name="category_id">
-
-        @foreach($categories as $category)
-        <option value="{{ $category->id }}">
-            {{ $category->name }}
-        </option>
-        @endforeach
-
-    </select>
-
-    <br><br>
-
-    <button type="submit">Save Item</button>
+    <button type="submit">Save Category</button>
 
 </form>
