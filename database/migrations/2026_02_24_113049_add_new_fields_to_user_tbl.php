@@ -7,7 +7,13 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('mobile')->unique()->change();
+
+            $table->string('mobile')->unique()->after('email');
+
+            $table->enum('role', ['admin', 'staff'])->default('staff');
+
+            $table->enum('account_status', ['active', 'inactive'])->default('active');
+
         });
     }
 
@@ -15,7 +21,7 @@ return new class extends Migration {
     {
         Schema::table('users', function (Blueprint $table) {
 
-          $table->dropUnique(['mobile']);
+            $table->dropColumn(['mobile', 'role', 'account_status']);
 
         });
     }

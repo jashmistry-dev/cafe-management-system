@@ -1,44 +1,51 @@
-<h2>Kitchen Orders</h2>
+@extends('staff.layout')
 
-@foreach($orders as $order)
+@section('content')
 
-    <div style="border:1px solid black; padding:10px; margin:10px;">
+    <h2>Kitchen Orders</h2>
 
-        <h3>Table {{ $order->table_id }}</h3>
+    @foreach($orders as $order)
 
-        <ul>
+        <div style="border:1px solid black; padding:10px; margin:10px;">
 
-            @foreach($order->items as $item)
+            <h3>Table {{ $order->table_id }}</h3>
 
-                <li>
-                    {{ $item->menuItem->name }}
-                    × {{ $item->quantity }}
-                </li>
+            <ul>
 
-            @endforeach
+                @foreach($order->items as $item)
 
-        </ul>
+                    <li>
+                        {{ $item->menuItem->name }}
+                        × {{ $item->quantity }}
+                    </li>
 
-        <p>Status: {{ $order->status }}</p>
+                @endforeach
 
-        <form method="POST" action="{{ route('staff.order.status', $order->id) }}">
-            @csrf
+            </ul>
 
-            <select name="status">
+            <p>Status: {{ $order->status }}</p>
 
-                <option value="pending">Pending</option>
-                <option value="preparing">Preparing</option>
-                <option value="ready">Ready</option>
-                <option value="completed">Completed</option>
+            <form method="POST" action="{{ route('staff.order.status', $order->id) }}">
+                @csrf
 
-            </select>
+                <select name="status">
 
-            <button type="submit">Update</button>
+                    <option value="pending">Pending</option>
+                    <option value="preparing">Preparing</option>
+                    <option value="ready">Ready</option>
+                    <option value="completed">Completed</option>
 
-        </form>
+                </select>
 
-        
+                <button type="submit">Update</button>
 
-    </div>
+            </form>
 
-@endforeach
+
+
+        </div>
+
+    @endforeach
+
+
+@endsection
