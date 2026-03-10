@@ -11,6 +11,7 @@ class MenuItem extends Model
         'name',
         'price',
         'category_id',
+        'image',
         'is_available'
     ];
 

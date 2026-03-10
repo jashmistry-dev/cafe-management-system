@@ -37,19 +37,26 @@ class MenuItemController extends Controller
         $request->validate([
             'name' => 'required',
             'price' => 'required',
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'image' => 'nullable|image'
         ]);
+
+        $imagePath = null;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('menu', 'public');
+        }
 
         MenuItem::create([
             'name' => $request->name,
             'price' => $request->price,
             'category_id' => $request->category_id,
+            'image' => $imagePath,
             'is_available' => 1
         ]);
 
         return redirect()->route('menu-items.index');
     }
-
     /**
      * Display the specified resource.
      */

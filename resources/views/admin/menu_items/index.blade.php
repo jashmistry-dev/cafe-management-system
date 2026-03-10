@@ -2,40 +2,57 @@
 
 @section('content')
 
-<h1>Menu Items</h1>
+    <h1 class="text-2xl font-bold"> Menu Items</h1>
 
-<a href="{{ route('menu-items.create') }}">Add Menu Item</a>
+    <br>
+    <a class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium" href="{{ route('menu-items.create') }}">Add Menu Item</a>
+    <br>
+    <br>
 
-<table border="1">
-<tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Price</th>
-    <th>Category</th>
-    <th>Actions</th>
-</tr>
 
-@foreach($menuItems as $item)
-<tr>
-    <td>{{ $item->id }}</td>
-    <td>{{ $item->name }}</td>
-    <td>{{ $item->price }}</td>
-    <td>{{ $item->category->name ?? 'None' }}</td>
+    <div class="grid md:grid-cols-3 gap-6">
 
-    <td>
-        <a href="{{ route('menu-items.edit',$item->id) }}">Edit</a>
+        @foreach($menuItems as $item)
 
-        <form action="{{ route('menu-items.destroy',$item->id) }}" method="POST">
-            @csrf
-            @method('DELETE')
+            <div class="bg-white shadow rounded-xl overflow-hidden">
 
-            <button type="submit">Delete</button>
-        </form>
-    </td>
-</tr>
-@endforeach
+                @if($item->image)
 
-</table>
+                    <img src="{{ asset('storage/' . $item->image) }}" class="h-40 w-full object-cover">
+
+                @endif
+
+                <div class="p-4">
+
+                    <h3 class="font-bold">
+                        {{ $item->name }}
+                    </h3>
+
+                    <p class="text-primary font-semibold">
+                        ₹ {{ $item->price }}
+                    </p>
+
+                    <br>
+
+                    
+                    
+                    
+                    <form action="{{ route('menu-items.destroy', $item->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        
+                        <a class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg" href="{{ route('menu-items.edit', $item->id) }}">Edit</a>
+                        <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
+                            type="submit">Delete</button>
+                    </form>
+
+                </div>
+
+            </div>
+
+        @endforeach
+
+    </div>
 
 
 @endsection

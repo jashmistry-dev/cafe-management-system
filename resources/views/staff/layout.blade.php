@@ -2,54 +2,76 @@
 <html>
 
 <head>
-    <title>Staff Dashboard</title>
+
+    <title>CafeOS | Kitchen</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#C67C4E",
+                        primarydark: "#8B5E3C",
+                        accent: "#F3E9DC"
+                    }
+                }
+            }
+        }
+    </script>
+
 </head>
 
-<body>
+<body class="bg-accent min-h-screen">
 
-    <h2>Kitchen Dashboard</h2>
+    <!-- NAVBAR -->
 
-    <nav>
+    <nav class="bg-white shadow-lg">
 
-        <a href="/staff/orders">Orders</a> |
+        <div class="max-w-7xl mx-auto px-8">
 
-        <a href="/admin/categories">Admin Panel</a> |
+            <div class="flex justify-between items-center h-16">
 
-        <a href="/table/1">Customer Menu</a>
+                <div class="flex items-center gap-3">
+
+                    <div class="text-2xl">☕</div>
+
+                    <h1 class="text-xl font-bold text-gray-800">
+                        CafeOS
+                    </h1>
+
+                </div>
+
+                <div class="flex gap-8 text-gray-600 font-medium">
+
+                    <a href="/staff/orders" class="hover:text-primary">
+                        Kitchen
+                    </a>
+
+                    <a href="/admin/categories" class="hover:text-primary">
+                        Admin
+                    </a>
+
+                    <a href="/table/1" class="hover:text-primary">
+                        Customer Menu
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </nav>
 
-    <hr>
+    <!-- PAGE CONTENT -->
 
-    @yield('content')
+    <div class="max-w-7xl mx-auto p-10">
 
-</body>
+        @yield('content')
 
-</html>
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Staff Dashboard</title>
-</head>
-
-<body>
-
-    <h2>Kitchen Dashboard</h2>
-
-    <nav>
-
-        <a href="/staff/orders">Orders</a> |
-
-        <a href="/admin/categories">Admin Panel</a> |
-
-        <a href="/table/1">Customer Menu</a>
-
-    </nav>
-
-    <hr>
-
-    @yield('content')
+    </div>
 
 </body>
 

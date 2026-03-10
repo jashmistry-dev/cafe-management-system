@@ -34,6 +34,7 @@ class CartController extends Controller
                 'id' => $menuItem->id,
                 'name' => $menuItem->name,
                 'price' => $menuItem->price,
+                'image' => $menuItem->image,
                 'quantity' => 1,
                 'table_id' => $request->table_id
             ];

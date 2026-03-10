@@ -2,37 +2,45 @@
 
 @section('content')
 
-<h2>Add Menu Item</h2>
+    <h2 class="text-2xl font-bold">Add Menu Item</h2>
 
-<form method="POST" action="{{ route('menu-items.store') }}">
-    @csrf
+    <form method="POST" action="{{ route('menu-items.store') }}" enctype="multipart/form-data">
+        @csrf
 
-    <label>Name</label>
-    <input type="text" name="name">
+        <label>Name</label>
+        <input type="text" name="name">
 
-    <br><br>
+        <div class="mb-4">
 
-    <label>Price</label>
-    <input type="number" name="price">
+            <label class="block mb-1 font-semibold">Food Image</label>
 
-    <br><br>
+            <input type="file" name="image" class="border p-2 w-full rounded">
 
-    <label>Category</label>
-    <select name="category_id">
+        </div>
 
-        @foreach($categories as $category)
-            <option value="{{ $category->id }}">
-                {{ $category->name }}
-            </option>
-        @endforeach
+        <br><br>
 
-    </select>
+        <label>Price</label>
+        <input type="number" name="price">
 
-    <br><br>
+        <br><br>
 
-    <button type="submit">Save Item</button>
+        <label>Category</label>
+        <select name="category_id">
 
-</form>
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}">
+                    {{ $category->name }}
+                </option>
+            @endforeach
+
+        </select>
+
+        <br><br>
+
+        <button class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium" type="submit">Save Item</button>
+
+    </form>
 
 
 @endsection

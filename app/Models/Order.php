@@ -9,9 +9,10 @@ class Order extends Model
     //
 
     protected $fillable = [
-    'table_id',
-    'status'
-];
+        'table_id',
+        'customer_id',
+        'status'
+    ];
 
     public function table()
     {

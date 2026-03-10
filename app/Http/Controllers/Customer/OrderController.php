@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Customer;
+
 
 class OrderController extends Controller
 {
@@ -17,16 +19,28 @@ class OrderController extends Controller
             return back()->with('error', 'Cart is empty');
         }
 
+        $request->validate([
+            'name' => 'required',
+            'mobile' => 'required'
+        ]);
+
+        // Find existing customer or create new
+        $customer = \App\Models\Customer::firstOrCreate(
+            ['mobile' => $request->mobile],
+            ['name' => $request->name]
+        );
+
         $tableId = $cart[0]['table_id'];
 
-        $order = Order::create([
+        $order = \App\Models\Order::create([
             'table_id' => $tableId,
+            'customer_id' => $customer->id,
             'status' => 'pending'
         ]);
 
         foreach ($cart as $item) {
 
-            OrderItem::create([
+            \App\Models\OrderItem::create([
                 'order_id' => $order->id,
                 'menu_item_id' => $item['id'],
                 'price' => $item['price'],
@@ -37,10 +51,7 @@ class OrderController extends Controller
 
         session()->forget('cart');
 
-        return redirect()->route('order.status', $order->id);
-
-        // return redirect('/table/' . $tableId)
-        //     ->with('success', 'Order placed successfully');
+        return redirect()->route('order.invoice', $order->id);
     }
 
     public function status(Order $order)
@@ -53,5 +64,12 @@ class OrderController extends Controller
         return response()->json([
             'status' => $order->status
         ]);
+    }
+
+    public function invoice(Order $order)
+    {
+        $order->load('items.menuItem', 'customer', 'table');
+
+        return view('customer.invoice', compact('order'));
     }
 }

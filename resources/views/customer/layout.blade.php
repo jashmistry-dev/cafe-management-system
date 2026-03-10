@@ -2,24 +2,43 @@
 <html>
 
 <head>
-    <title>Cafe Menu</title>
+    <title>Cafe Ordering</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
 
-<body>
+<body class="bg-gray-100">
 
-    <h2>Cafe Ordering</h2>
+    <nav class="bg-white shadow">
 
-    <nav>
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between">
 
-        <a href="/table/1">Menu</a> |
+            <h1 class="text-xl font-bold text-gray-800">
+                ☕ Cafe Ordering
+            </h1>
 
-        <a href="/cart">Cart</a>
+            <div class="space-x-6">
+
+                <a href="/table/1" class="text-gray-600 hover:text-blue-600">
+                    Menu
+                </a>
+
+                <a href="/cart" class="text-gray-600 hover:text-blue-600">
+                    Cart
+                </a>
+
+            </div>
+
+        </div>
 
     </nav>
 
-    <hr>
+    <div class="max-w-6xl mx-auto mt-8">
 
-    @yield('content')
+        @yield('content')
+
+    </div>
 
 </body>
 

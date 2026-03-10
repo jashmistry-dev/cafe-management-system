@@ -1,57 +1,47 @@
 @extends('admin.layout')
 
 @section('content')
-    <h2>Tables</h2>
+    <h2 class="text-2xl font-bold">Tables</h2>
 
     <a href="{{ route('tables.create') }}">Add Table</a>
 
-    <table border="1">
-
-        <tr>
-            <th>ID</th>
-            <th>Table Number</th>
-            <th>QR Code</th>
-            <th>Actions</th>
-        </tr>
+    <div class="grid md:grid-cols-4 gap-6">
 
         @foreach($tables as $table)
 
-            <tr>
+            <div class="bg-white shadow rounded-xl p-6 text-center">
 
-                <td>{{ $table->id }}</td>
+                <h3 class="text-xl font-bold">
 
-                <td>{{ $table->table_number }}</td>
+                    Table {{ $table->table_number }}
 
-                <td>
+                </h3>
 
-                    {!! QrCode::size(120)->generate(url('/table/' . $table->id)) !!}
 
-                </td>
-                <td>
 
-                    <a href="{{ url('/table/' . $table->id) }}" target="_blank">Open Link</a>
-                    
-                </td>
+                <br>
+                <a class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium"
+                    href="{{ url('/table/' . $table->id) }}" target="_blank">Open Link</a>
+                <br>
+                <br>
+                <form method="POST" action="{{ route('tables.destroy', $table->id) }}">
+                    @csrf
+                    @method('DELETE')
 
-                <td>
+                    <a class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg"
+                        href="{{ route('tables.edit', $table->id) }}">Edit</a>
+                    <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg" type="submit">Delete</button>
 
-                    <a href="{{ route('tables.edit', $table->id) }}">Edit</a>
 
-                    <form method="POST" action="{{ route('tables.destroy', $table->id) }}">
-                        @csrf
-                        @method('DELETE')
 
-                        <button type="submit">Delete</button>
 
-                    </form>
+                </form>
 
-                </td>
-
-            </tr>
+            </div>
 
         @endforeach
 
-    </table>
+    </div>
 
 
 @endsection

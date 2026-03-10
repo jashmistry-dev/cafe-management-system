@@ -3,7 +3,7 @@
 
 @section('content')
 
-<h2>Edit Menu Item</h2>
+<h2 class="text-2xl font-bold">Edit Menu Item</h2>
 
 <form method="POST" action="{{ route('menu-items.update', $menuItem->id) }}">
     @csrf
@@ -33,7 +33,7 @@
 
     <br><br>
 
-    <button type="submit">Update Item</button>
+    <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg" type="submit">Update Item</button>
 
 </form>
 

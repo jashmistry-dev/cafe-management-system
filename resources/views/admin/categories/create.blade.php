@@ -2,19 +2,34 @@
 
 @section('content')
 
-<h2>Create Category</h2>
+    <div class="bg-white shadow rounded-xl p-8 max-w-lg">
 
-<form method="POST" action="{{ route('categories.store') }}">
-    @csrf
+        <h2 class="text-2xl font-bold mb-6">
 
-    <label>Category Name</label>
-    <input type="text" name="name">
+            Create Category
 
-    <br><br>
+        </h2>
 
-    <button type="submit">Save Category</button>
+        <form method="POST" action="{{ route('categories.store') }}">
 
-</form>
+            @csrf
 
+            <label class="block mb-2 font-medium">
+
+                Category Name
+
+            </label>
+
+            <input type="text" name="name" class="border rounded-lg w-full p-2 mb-4">
+
+            <button class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium" >
+
+                Save Category
+
+            </button>
+
+        </form>
+
+    </div>
 
 @endsection

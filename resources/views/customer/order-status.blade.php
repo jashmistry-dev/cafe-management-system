@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h2>Your Order Status</h2>
+<h2 class="text-2xl font-bold">Your Order Status</h2>
 
 <p>Order ID: {{ $order->id }}</p>
 

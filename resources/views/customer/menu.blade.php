@@ -1,32 +1,50 @@
-
 @extends('customer.layout')
 
 @section('content')
 
-<h2>Menu - Table {{ $table->table_number }}</h2>
+    <h2 class="text-3xl font-bold mb-8">
+        Menu
+    </h2>
 
-@foreach($menuItems as $item)
+    <div class="grid md:grid-cols-3 gap-8">
 
-<div style="border:1px solid #ccc; padding:10px; margin:10px;">
+        @foreach($menuItems as $item)
 
-    <h3>{{ $item->name }}</h3>
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
 
-    <p>Price: ₹{{ $item->price }}</p>
+                <img src="{{ asset('storage/' . $item->image) }}" class="w-full h-48 object-cover">
 
-    <form method="POST" action="{{ route('cart.add') }}">
-        @csrf
+                <div class="p-4">
 
-        <input type="hidden" name="menu_item_id" value="{{ $item->id }}">
-        <input type="hidden" name="table_id" value="{{ $table->id }}">
+                    <h3 class="text-lg font-semibold">
+                        {{ $item->name }}
+                    </h3>
 
-        <button type="submit">Add to Cart</button>
+                    <p class="text-orange-500 font-bold">
+                        ₹ {{ $item->price }}
+                    </p>
 
-    </form>
+                    <form method="POST" action="/cart/add">
 
-</div>
+                        @csrf
 
-@endforeach
+                        <input type="hidden" name="menu_item_id" value="{{ $item->id }}">
+                        <input type="hidden" name="table_id" value="{{ $table->id }}">
 
-<a href="{{ route('cart.view') }}">View Cart</a>
+                        <button class="mt-3 bg-orange-500 text-white px-4 py-2 rounded-lg w-full">
+
+                            Add to Cart
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        @endforeach
+
+    </div>
 
 @endsection

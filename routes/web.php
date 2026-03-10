@@ -58,3 +58,8 @@ Route::prefix('admin')->group(function () {
 
 });
 
+
+
+//for invoice generation
+Route::get('/invoice/{order}', [OrderController::class,'invoice'])->name('order.invoice');
+
