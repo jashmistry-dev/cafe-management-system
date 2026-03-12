@@ -10,6 +10,7 @@ use App\Http\Controllers\Customer\OrderController;
 use App\Http\Controllers\Staff\OrderController as StaffOrderController;
 
 use App\Http\Controllers\Admin\TableController;
+use App\Http\Controllers\AuthController;
 
 
 Route::get('/', function () {
@@ -48,7 +49,7 @@ Route::prefix('staff')->group(function () {
 Route::get('/order/{order}', [OrderController::class, 'status'])->name('order.status');
 
 //For auto updating order status to customer
-Route::get('/order/{order}/status',[OrderController::class,'checkStatus']);
+Route::get('/order/{order}/status', [OrderController::class, 'checkStatus']);
 
 //for table crud
 
@@ -56,10 +57,18 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('tables', TableController::class);
 
+    //Authentication of Admin (Login,Logout)
+    Route::get("/login", [AuthController::class, 'showLoginForm'])->name('login');
+
+    Route::post("/login", [AuthController::class, 'login']);
+
+    Route::post("/logout", [AuthController::class, 'logout'])->name('logout');
+
 });
 
 
 
 //for invoice generation
-Route::get('/invoice/{order}', [OrderController::class,'invoice'])->name('order.invoice');
+Route::get('/invoice/{order}', [OrderController::class, 'invoice'])->name('order.invoice');
+
 
