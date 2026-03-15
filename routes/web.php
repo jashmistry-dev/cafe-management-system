@@ -6,25 +6,18 @@ use App\Http\Controllers\Admin\MenuItemController;
 use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Customer\MenuController;
 use App\Http\Controllers\Customer\OrderController;
-
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Staff\OrderController as StaffOrderController;
 
 use App\Http\Controllers\Admin\TableController;
-use App\Http\Controllers\AuthController;
+
 
 
 Route::get('/', function () {
-    return redirect("/admin/login");
+    return redirect("/login");
 });
 
 
-Route::prefix('admin')->group(function () {
-
-    Route::resource('categories', CategoryController::class);
-
-    Route::resource('menu-items', MenuItemController::class);
-
-});
 
 
 //cart
@@ -41,10 +34,10 @@ Route::post('/order/place', [OrderController::class, 'place'])->name('order.plac
 //for staff
 Route::prefix('staff')->group(function () {
     Route::get('/orders', [StaffOrderController::class, 'index'])->name('staff.orders');
-    
+
     Route::post('/orders/{order}/status', [StaffOrderController::class, 'updateStatus'])->name('staff.order.status');
     Route::get('/menu', [StaffOrderController::class, 'showMenu']);
-    
+
 });
 
 Route::get('/order/{order}', [OrderController::class, 'status'])->name('order.status');
@@ -52,24 +45,41 @@ Route::get('/order/{order}', [OrderController::class, 'status'])->name('order.st
 //For auto updating order status to customer
 Route::get('/order/{order}/status', [OrderController::class, 'checkStatus']);
 
-//for table crud
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('auth')->group(function () {
 
-    Route::resource('tables', TableController::class);
-
+    
     //Authentication of Admin (Login,Logout)
-    Route::get("/login", [AuthController::class, 'showLoginForm'])->name('login');
+    Route::resource('tables', TableController::class);
+     Route::resource('categories', CategoryController::class);
 
-    Route::post("/login", [AuthController::class, 'login']);
+    Route::resource('menu-items', MenuItemController::class);
 
-    Route::post("/logout", [AuthController::class, 'logout'])->name('logout');
 
 });
+
+//For debuges
+// Route::get('/check-auth', function () {
+//     return auth()->check() ? 'Logged In' : 'Guest';
+// });
 
 
 
 //for invoice generation
 Route::get('/invoice/{order}', [OrderController::class, 'invoice'])->name('order.invoice');
-    
+
+//Authentication Breeze 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__ . '/auth.php';
+
+
 

@@ -55,6 +55,17 @@
 
                     <a href="/staff/orders" class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium">Kitchen</a>
 
+
+                    <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <x-dropdown-link :href="route('logout')"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                {{ __('Log Out') }}
+                            </x-dropdown-link>
+                    </form>
+                   
                 </div>
 
             </div>
