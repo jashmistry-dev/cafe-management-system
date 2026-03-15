@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Staff\OrderController as StaffOrderController;
 
 use App\Http\Controllers\Admin\TableController;
+use App\Http\Controllers\Admin\StaffController;
 
 
 
@@ -32,7 +33,7 @@ Route::get('/table/{table}', [MenuController::class, 'showMenu']);
 Route::post('/order/place', [OrderController::class, 'place'])->name('order.place');
 
 //for staff
-Route::prefix('staff')->group(function () {
+Route::prefix('staff')->middleware(['auth', 'staff'])->group(function () {
     Route::get('/orders', [StaffOrderController::class, 'index'])->name('staff.orders');
 
     Route::post('/orders/{order}/status', [StaffOrderController::class, 'updateStatus'])->name('staff.order.status');
@@ -46,14 +47,13 @@ Route::get('/order/{order}', [OrderController::class, 'status'])->name('order.st
 Route::get('/order/{order}/status', [OrderController::class, 'checkStatus']);
 
 
-Route::prefix('admin')->middleware('auth')->group(function () {
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
-    
     //Authentication of Admin (Login,Logout)
     Route::resource('tables', TableController::class);
-     Route::resource('categories', CategoryController::class);
-
+    Route::resource('categories', CategoryController::class);
     Route::resource('menu-items', MenuItemController::class);
+    Route::resource('staff', StaffController::class);
 
 
 });
@@ -71,7 +71,7 @@ Route::get('/invoice/{order}', [OrderController::class, 'invoice'])->name('order
 //Authentication Breeze 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -49,9 +49,9 @@
                         Kitchen
                     </a>
 
-                    <a href="/admin/categories" class="hover:text-primary">
+                    <!-- <a href="/admin/categories" class="hover:text-primary">
                         Admin
-                    </a>
+                    </a> -->
 
                     <a href="/staff/menu" class="hover:text-primary">
                         Customer Menu

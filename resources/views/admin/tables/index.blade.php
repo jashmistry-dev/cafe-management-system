@@ -2,8 +2,10 @@
 
 @section('content')
     <h2 class="text-2xl font-bold">Tables</h2>
-
-    <a href="{{ route('tables.create') }}">Add Table</a>
+    <br>
+    <a class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium" href="{{ route('tables.create') }}">Add Table</a>
+    <br>
+    <br>
 
     <div class="grid md:grid-cols-4 gap-6">
 
