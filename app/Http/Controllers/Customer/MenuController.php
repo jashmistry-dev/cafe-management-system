@@ -12,7 +12,11 @@ class MenuController extends Controller
     {
         $table = Table::findOrFail($table);
 
+        $table_ID = $table->id;
+
         $menuItems = MenuItem::where('is_available', 1)->get();
+
+        session(['table_id'=> $table_ID]);
 
         return view('customer.menu', compact('menuItems', 'table'));
     }

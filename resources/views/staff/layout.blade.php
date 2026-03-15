@@ -53,7 +53,7 @@
                         Admin
                     </a>
 
-                    <a href="/table/1" class="hover:text-primary">
+                    <a href="/staff/menu" class="hover:text-primary">
                         Customer Menu
                     </a>
 

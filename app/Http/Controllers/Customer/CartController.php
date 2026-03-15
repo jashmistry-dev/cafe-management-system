@@ -39,6 +39,7 @@ class CartController extends Controller
                 'table_id' => $request->table_id
             ];
         }
+        // dd($request->all());
 
         session()->put('cart', $cart);
 

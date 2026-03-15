@@ -7,6 +7,7 @@
 <p>Order ID: {{ $order->id }}</p>
 
 <p>Table: {{ $order->table_id }}</p>
+<p>Table: {{ $order->table_id }}</p>
 
 <h3>Status: <span id="orderStatus">{{ strtoupper($order->status) }}</span></h3>
 

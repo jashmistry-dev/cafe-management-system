@@ -41,9 +41,10 @@ Route::post('/order/place', [OrderController::class, 'place'])->name('order.plac
 //for staff
 Route::prefix('staff')->group(function () {
     Route::get('/orders', [StaffOrderController::class, 'index'])->name('staff.orders');
-
+    
     Route::post('/orders/{order}/status', [StaffOrderController::class, 'updateStatus'])->name('staff.order.status');
-
+    Route::get('/menu', [StaffOrderController::class, 'showMenu']);
+    
 });
 
 Route::get('/order/{order}', [OrderController::class, 'status'])->name('order.status');
@@ -70,5 +71,5 @@ Route::prefix('admin')->group(function () {
 
 //for invoice generation
 Route::get('/invoice/{order}', [OrderController::class, 'invoice'])->name('order.invoice');
-
+    
 
