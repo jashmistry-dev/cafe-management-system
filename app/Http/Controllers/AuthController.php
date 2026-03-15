@@ -26,11 +26,23 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        $user = User::where('email', '$request->email')->first();
 
-        if (!$user || Hash::check($request->password, $user->password)) {
-            return back()->with('error', 'Invalid Credentials');
+
+        $user = User::where('email', $request->email)->first();
+
+
+        if (!$user) {
+            return back()->with('error', 'User not found');
         }
+
+        if (!Hash::check($request->password, $user->password)) {
+            return back()->with('error', 'Password incorrect');
+        }
+
+
+        // if (!$user || Hash::check($request->password, $user->password)) {
+        //     return back()->with('error', 'Invalid Credentials');
+        // }
 
         if ($user->role !== 'admin') {
             return back()->with('error', 'Unauthorized access');
@@ -39,6 +51,7 @@ class AuthController extends Controller
         Auth::login($user);
 
         return redirect('/admin/categories');
+        // dd($request->all());
     }
     public function logout()
     {
