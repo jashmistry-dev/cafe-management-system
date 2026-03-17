@@ -68,10 +68,17 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 //for invoice generation
 Route::get('/invoice/{order}', [OrderController::class, 'invoice'])->name('order.invoice');
 
+
 //Authentication Breeze 
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'admin'])->name('dashboard');
+
+    $user = auth()->user();
+
+    $role = $user->isAdmin() ? 'admin' : 'staff';
+
+    return view('dashboard', compact('role'));
+
+})->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

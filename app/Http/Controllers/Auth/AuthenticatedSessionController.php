@@ -35,7 +35,7 @@ class AuthenticatedSessionController extends Controller
         }
 
         if ($user->role === 'staff') {
-            return redirect()->route('staff.orders');
+            return redirect()->route('dashboard');
         }
 
         return redirect('/');

@@ -15,10 +15,14 @@ class StaffMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (!auth()->check() || auth()->user()->role !== 'staff') {
-            abort(403);
+
+        if (!auth()->check()) {
+            return redirect()->route('login'); // 👈 FIX
         }
 
+        if (auth()->user()->role !== 'staff') {
+            abort(403);
+        }
         return $next($request);
     }
 }

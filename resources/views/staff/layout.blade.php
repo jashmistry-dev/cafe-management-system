@@ -12,14 +12,18 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: "#C67C4E",
+                         primary: "#C67C4E",
                         primarydark: "#8B5E3C",
-                        accent: "#F3E9DC"
+                        accent: "#F8F5F2",
+                        success: "#22C55E",
+                        danger: "#EF4444"
                     }
                 }
             }
         }
     </script>
+
+    
 
 </head>
 
@@ -56,6 +60,23 @@
                     <a href="/staff/menu" class="hover:text-primary">
                         Customer Menu
                     </a>
+
+                    <a href="/dashboard" class="hover:text-primary">
+                        Dashboard
+                    </a>
+
+                      <form class="px-4 py-2" method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <a  class="bg-danger hover:bg-dangerdark text-white px-4 py-2 rounded-lg font-medium" href="route('logout')"  onclick="event.preventDefault();
+                                                this.closest('form').submit();">{{ __('Log Out') }}</a>
+                            <!-- <x-dropdown-link :href="route('logout')"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                {{ __('Log Out') }}
+                            </x-dropdown-link> -->
+                    </form>
+                   
 
                 </div>
 

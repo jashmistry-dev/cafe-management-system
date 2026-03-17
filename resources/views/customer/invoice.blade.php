@@ -2,6 +2,24 @@
 
 @section('content')
 
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                         primary: "#C67C4E",
+                        primarydark: "#8B5E3C",
+                        accent: "#F8F5F2",
+                        success: "#22C55E",
+                        danger: "#EF4444"
+                    }
+                }
+            }
+        }
+    </script>
+
     <h2 class="text-2xl font-bold">Cafe Invoice</h2>
 
     <hr>

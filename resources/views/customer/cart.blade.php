@@ -4,6 +4,24 @@
     @php
         $total = 0;
     @endphp
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                         primary: "#C67C4E",
+                        primarydark: "#8B5E3C",
+                        accent: "#F8F5F2",
+                        success: "#22C55E",
+                        danger: "#EF4444"
+                    }
+                }
+            }
+        }
+    </script>
     <h2 class="text-3xl font-bold mb-8">
         Your Cart
     </h2>
