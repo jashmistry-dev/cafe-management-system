@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Table;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Http\Request;
 
 class TableController extends Controller
@@ -54,6 +55,20 @@ class TableController extends Controller
         $table->delete();
 
         return back();
+    }
+
+
+    public function downloadQR($id)
+    {
+        $table = Table::findOrFail($id);
+
+        $qr = QrCode::format('svg')
+            ->size(300)
+            ->generate(url('/table/' . $table->table_number));
+
+        return response($qr)
+            ->header('Content-Type', 'image/png')
+            ->header('Content-Disposition', 'attachment; filename="table-' . $table->table_number . '.svg"');
     }
 
 }

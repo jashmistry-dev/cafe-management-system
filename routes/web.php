@@ -54,9 +54,12 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('menu-items', MenuItemController::class);
     Route::resource('staff', StaffController::class);
-
+   
 
 });
+
+Route::get('/admin/tables/{table}/qr', [TableController::class, 'downloadQR'])
+    ->name('tables.qr');
 
 //For debuges
 // Route::get('/check-auth', function () {

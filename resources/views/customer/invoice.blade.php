@@ -20,9 +20,9 @@
         }
     </script>
 
-    <h2 class="text-2xl font-bold">Cafe Invoice</h2>
+    <h2 class=" text-2xl font-bold">Cafe Invoice</h2>
 
-    <hr>
+<br>    <hr>
 
     <p><strong>Order ID:</strong> {{ $order->id }}</p>
     <p><strong>Table:</strong> {{ $order->table->table_number }}</p>
@@ -71,12 +71,12 @@
 
     <br>
 
-    <button onclick="window.print()">Print Invoice</button>
+    <button class="bg-primary hover:bg-primarydark text-white px-6 py-2 rounded-lg" onclick="window.print()">Print Invoice</button>
 
     <br><br>
 
     <a href="{{ route('order.status', $order->id) }}">
-        <button>Track Order Status</button>
+        <button class="bg-primary hover:bg-primarydark text-white px-6 py-2 rounded-lg">Track Order Status</button>
     </a>
 
 @endsection
