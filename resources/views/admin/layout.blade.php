@@ -7,6 +7,7 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/countup.js@2.6.2/dist/countUp.umd.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -23,6 +24,19 @@
         }
     </script>
 
+    <style>
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease forwards;
+            transform: translateY(20px);
+        }
+    </style>
 </head>
 
 <body class="bg-accent min-h-screen">
@@ -91,7 +105,7 @@
         @yield('content')
 
     </div>
-
+    @stack('scripts')
 </body>
 
 </html>

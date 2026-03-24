@@ -40,6 +40,19 @@ Route::prefix('staff')->middleware(['auth', 'staff'])->group(function () {
     Route::post('/orders/{order}/status', [StaffOrderController::class, 'updateStatus'])->name('staff.order.status');
     Route::get('/menu', [StaffOrderController::class, 'showMenu']);
 
+    // ✅ latest order (for sound)
+    Route::get('/orders/latest', function () {
+        return \App\Models\Order::latest()->first();
+    });
+
+    // ✅ live orders (for UI refresh)
+    Route::get('/orders/live', function () {
+        return \App\Models\Order::with('table', 'items.menuItem')
+            ->latest()
+            ->take(10)
+            ->get();
+    });
+
 });
 
 Route::get('/order/{order}', [OrderController::class, 'status'])->name('order.status');
