@@ -6,7 +6,7 @@
     <title>CafeOS Admin</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -47,27 +47,37 @@
 
                 <div class="flex gap-6 text-gray-600 font-medium">
 
-                    <a href="/admin/categories" class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium">Categories</a>
+                    <a href="/admin/categories"
+                        class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium">Categories</a>
 
-                    <a href="/admin/menu-items" class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium">Menu Items</a>
+                    <a href="/admin/menu-items"
+                        class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium">Menu
+                        Items</a>
 
-                    <a href="/admin/tables" class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium">Tables</a>
+                    <a href="/admin/tables"
+                        class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium">Tables</a>
 
-                    <a href="/admin/staff" class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium">Staff</a>
+                    <a href="/admin/staff"
+                        class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium">Staff</a>
+
+
+                    <a href="/admin/analytics"
+                        class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium">Analytics</a>
 
 
                     <form class="px-4 py-2" method="POST" action="{{ route('logout') }}">
-                            @csrf
+                        @csrf
 
-                            <a  class="bg-danger hover:bg-dangerdark text-white px-4 py-2 rounded-lg font-medium" href="route('logout')"  onclick="event.preventDefault();
+                        <a class="bg-danger hover:bg-dangerdark text-white px-4 py-2 rounded-lg font-medium"
+                            href="route('logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();">{{ __('Log Out') }}</a>
-                            <!-- <x-dropdown-link :href="route('logout')"
+                        <!-- <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link> -->
                     </form>
-                   
+
                 </div>
 
             </div>

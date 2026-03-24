@@ -11,6 +11,7 @@ use App\Http\Controllers\Staff\OrderController as StaffOrderController;
 
 use App\Http\Controllers\Admin\TableController;
 use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\Admin\AnalyticsController;
 
 
 
@@ -54,7 +55,11 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('menu-items', MenuItemController::class);
     Route::resource('staff', StaffController::class);
-   
+
+    Route::get('analytics', [AnalyticsController::class, 'index'])
+        ->name('admin.analytics');
+
+
 
 });
 
