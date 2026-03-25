@@ -62,27 +62,30 @@
                 <div class="flex gap-6 text-gray-600 font-medium">
 
                     <a href="/admin/categories"
-                        class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium">Categories</a>
+                        class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-bold">Categories</a>
 
                     <a href="/admin/menu-items"
-                        class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium">Menu
+                        class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-bold">Menu
                         Items</a>
 
                     <a href="/admin/tables"
-                        class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium">Tables</a>
+                        class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-bold">Tables</a>
 
                     <a href="/admin/staff"
-                        class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium">Staff</a>
+                        class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-bold">Staff</a>
 
 
                     <a href="/admin/analytics"
-                        class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium">Analytics</a>
+                        class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-bold">Analytics</a>
 
+                    <a href="/dashboard"  class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-bold">
+                        Dashboard
+                    </a>
 
                     <form class="px-4 py-2" method="POST" action="{{ route('logout') }}">
                         @csrf
 
-                        <a class="bg-danger hover:bg-dangerdark text-white px-4 py-2 rounded-lg font-medium"
+                        <a class="bg-danger hover:bg-primarydark text-white px-4 py-2 rounded-lg font-bold"
                             href="route('logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();">{{ __('Log Out') }}</a>
                         <!-- <x-dropdown-link :href="route('logout')"

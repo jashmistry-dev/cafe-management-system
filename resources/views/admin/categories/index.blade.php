@@ -2,78 +2,79 @@
 
 @section('content')
 
-    <div class="flex justify-between mb-6">
-
-        <h2 class="text-2xl font-bold">Categories</h2>
+        <div class="p-4 sm:p-6 opacity-0 animate-fadeIn">
 
 
-    </div>
+            <div class="flex justify-between mb-6">
 
-    <a href="{{ route('categories.create') }}" class="bg-primary text-white px-4 py-2 rounded-lg">
+                <h2 class="text-2xl font-bold">Categories</h2>
 
-        Add Category
 
-    </a>
-    <br>
-    <br>
-    <div class="bg-white rounded-xl shadow overflow-hidden">
+            </div>
 
-        <table class="w-full">
+            <a href="{{ route('categories.create') }}" class="bg-primary text-white font-bold px-4 py-2 rounded-lg">
 
-            <thead class="bg-gray-200">
+                Add Category
 
-                <tr>
+            </a>
+            <br>
+            <br>
+            <div class="bg-white rounded-xl shadow overflow-hidden">
 
-                    <th class="p-4 text-left text-xl">ID</th>
-                    <th class="p-4 text-left text-xl">Name</th>
-                    <th class="p-4 text-left text-xl">Actions</th>
+                <table class="w-full">
 
-                </tr>
+                    <thead class="bg-gray-200">
 
-            </thead>
+                        <tr>
 
-            <tbody>
+                            <th class="p-4 text-left text-xl">ID</th>
+                            <th class="p-4 text-left text-xl">Name</th>
+                            <th class="p-4 text-left text-xl">Actions</th>
 
-                @foreach($categories as $category)
+                        </tr>
 
-                    <tr class="border-t">
+                    </thead>
 
-                        <td class="p-4 text-m"><b>{{ $category->id }}</b></td>
+                    <tbody>
 
-                        <td class="p-4 text-m"><b>{{ $category->name }}</b></td>
+                        @foreach($categories as $category)
 
-                        <td class="p-4 text-m flex gap-3">
+                            <tr class="border-t">
 
-                            <a href="{{ route('categories.edit', $category->id) }}"
-                                class="bg-blue-500 text-white px-3 py-1 rounded">
+                                <td class="p-4 text-m"><b>{{ $category->id }}</b></td>
 
-                                Edit
+                                <td class="p-4 text-m"><b>{{ $category->name }}</b></td>
 
-                            </a>
+                                <td class="p-4 text-m flex gap-3">
 
-                            <form method="POST" action="{{ route('categories.destroy', $category->id) }}">
+                                    <a href="{{ route('categories.edit', $category->id) }}"
+                                        class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">Edit </a>
 
-                                @csrf
-                                @method('DELETE')
+                                    <form method="POST" action="{{ route('categories.destroy', $category->id) }}">
 
-                                <button class="bg-red-500 text-white px-3 py-1 rounded">
+                                        @csrf
+                                        @method('DELETE')
 
-                                    Delete
+                                        <button class="bg-red-500 text-white px-3 py-1 rounded">
 
-                                </button>
+                                            Delete
 
-                            </form>
+                                        </button>
 
-                        </td>
+                                    </form>
 
-                    </tr>
+                                </td>
 
-                @endforeach
+                            </tr>
 
-            </tbody>
+                        @endforeach
 
-        </table>
+                    </tbody>
 
-    </div>
+                </table>
+
+            </div>
+        </div>
+   
 
 @endsection

@@ -15,10 +15,10 @@
 
                 <label class="block mb-2 font-medium">Table Number</label>
 
-                <input class="border rounded-lg w-full p-2 mb-4" type="text" name="table_number">
+                <input class="border rounded-lg w-full p-2 mb-4" type="text" name="table_number" placeholder="101">
                 <br>
                 <br>
-                <button class="bg-primary hover:bg-primary text-white px-4 py-2 rounded-lg font-medium"
+                <button class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium"
                     type="submit">Save</button>
 
             </form>

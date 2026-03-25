@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Table;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,6 +12,9 @@ class AnalyticsController extends Controller
 {
     public function index(Request $request)
     {
+
+    
+        $tables = Table::all();
 
         // ✅ FIX 1: Date logic (no override)
         if ($request->range === 'today') {
@@ -152,6 +156,7 @@ class AnalyticsController extends Controller
         // ✅ FIX 5: Removed undefined ordersByHour
         // =========================
         return view('admin.analytics.analytics', compact(
+            'tables',
             'totalRevenue',
             'totalOrders',
             'avgOrderValue',

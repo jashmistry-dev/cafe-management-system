@@ -11,20 +11,19 @@
                 @csrf
 
                 <label class="block mb-2 font-medium">Name</label>
-                <input  class="border rounded-lg w-full p-2 mb-4"   type="text" name="name">
+                <input  class="border rounded-lg w-full p-2 mb-4" type="text" name="name" placeholder="Pizza">
 
                 <div class="mb-4">
 
                     <label class="block mb-2 font-medium">Food Image</label>
 
-                    <input  class="border rounded-lg w-full p-2 mb-4"  type="file" name="image" class="border p-2 w-full rounded">
+                    <input  class="border rounded-lg w-full p-2 mb-4"  type="file" name="image" >
 
                 </div>
 
-                <br><br>
 
                 <label class="block mb-2 font-medium">Price</label>
-                <input  class="border rounded-lg w-full p-2 mb-4"  type="number" name="price">
+                <input  class="border rounded-lg w-full p-2 mb-4"  type="number" name="price" placeholder="899">
 
                 <br><br>
 

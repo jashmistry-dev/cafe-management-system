@@ -2,7 +2,8 @@
 
 @section('content')
 
-    <div class="p-4 sm:p-6 opacity-0 animate-fadeIn"></div>
+    <div class="p-4 sm:p-6 opacity-0 animate-fadeIn">
+
 
 
         <!-- Header -->
@@ -116,6 +117,7 @@
 
     </div>
 
+    </div>
 @endsection
 
 @push('scripts')

@@ -1,35 +1,38 @@
 @extends('admin.layout')
 
 @section('content')
+    <div class="bg-white shadow rounded-xl p-8 max-w-2xl">
+        <div class="p-4 sm:p-6 opacity-0 animate-fadeIn">
 
-    <div class="bg-white shadow rounded-xl p-8 max-w-lg">
 
-        <h2 class="text-2xl font-bold mb-6">
+                <h2 class="text-2xl font-bold mb-6">
 
-            Create Category
+                    Create Category
 
-        </h2>
+                </h2>
 
-        <form method="POST" action="{{ route('categories.store') }}">
+                <form method="POST" action="{{ route('categories.store') }}">
 
-            @csrf
+                    @csrf
 
-            <label class="block mb-2 font-medium">
+                    <label class="block mb-2 font-medium">
 
-                Category Name
+                        Category Name
 
-            </label>
+                    </label>
 
-            <input type="text" name="name" class="border rounded-lg w-full p-2 mb-4">
+                    <input class="border rounded-lg w-full p-2 mb-4" type="text" name="name" placeholder="Fast Food">
 
-            <button class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium" >
+                    <button class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium"
+                  >
 
-                Save Category
+                        Save Category
 
-            </button>
+                    </button>
 
-        </form>
+                </form>
 
+
+        </div>
     </div>
-
 @endsection
