@@ -49,7 +49,7 @@
 
                 <div class="flex gap-8 text-gray-600 font-medium">
 
-                    <a href="/staff/orders" class="hover:text-primary">
+                    <a href="/staff/orders" class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-bold">
                         Kitchen
                     </a>
 
@@ -57,18 +57,18 @@
                         Admin
                     </a> -->
 
-                    <a href="/staff/menu" class="hover:text-primary">
+                    <a href="/staff/menu" class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-bold">
                         Customer Menu
                     </a>
 
-                    <a href="/dashboard" class="hover:text-primary">
+                    <a href="/dashboard" class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-bold">
                         Dashboard
                     </a>
 
                       <form class="px-4 py-2" method="POST" action="{{ route('logout') }}">
                             @csrf
 
-                            <a  class="bg-danger hover:bg-dangerdark text-white px-4 py-2 rounded-lg font-medium" href="route('logout')"  onclick="event.preventDefault();
+                            <a  class="bg-danger hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium" href="route('logout')"  onclick="event.preventDefault();
                                                 this.closest('form').submit();">{{ __('Log Out') }}</a>
                             <!-- <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
