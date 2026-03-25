@@ -1,46 +1,52 @@
 @extends('admin.layout')
 
 @section('content')
+    <div class="bg-white shadow rounded-xl p-8 max-w-2xl">
+        <div class="p-4 sm:p-6 opacity-0 animate-fadeIn">
 
-    <h2 class="text-2xl font-bold">Add Menu Item</h2>
 
-    <form method="POST" action="{{ route('menu-items.store') }}" enctype="multipart/form-data">
-        @csrf
+            <h2 class="text-2xl font-bold mb-6">Add Menu Item</h2>
 
-        <label>Name</label>
-        <input type="text" name="name">
+            <form method="POST" action="{{ route('menu-items.store') }}" enctype="multipart/form-data">
+                @csrf
 
-        <div class="mb-4">
+                <label class="block mb-2 font-medium">Name</label>
+                <input  class="border rounded-lg w-full p-2 mb-4"   type="text" name="name">
 
-            <label class="block mb-1 font-semibold">Food Image</label>
+                <div class="mb-4">
 
-            <input type="file" name="image" class="border p-2 w-full rounded">
+                    <label class="block mb-2 font-medium">Food Image</label>
 
+                    <input  class="border rounded-lg w-full p-2 mb-4"  type="file" name="image" class="border p-2 w-full rounded">
+
+                </div>
+
+                <br><br>
+
+                <label class="block mb-2 font-medium">Price</label>
+                <input  class="border rounded-lg w-full p-2 mb-4"  type="number" name="price">
+
+                <br><br>
+
+                <label class="block mb-2 font-medium">Category</label>
+                <select  class="border rounded-lg w-full p-2 mb-4"  name="category_id">
+
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}">
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+
+                </select>
+
+                <br><br>
+
+                <button class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium"
+                    type="submit">Save Item</button>
+
+            </form>
         </div>
-
-        <br><br>
-
-        <label>Price</label>
-        <input type="number" name="price">
-
-        <br><br>
-
-        <label>Category</label>
-        <select name="category_id">
-
-            @foreach($categories as $category)
-                <option value="{{ $category->id }}">
-                    {{ $category->name }}
-                </option>
-            @endforeach
-
-        </select>
-
-        <br><br>
-
-        <button class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-medium" type="submit">Save Item</button>
-
-    </form>
+    </div>
 
 
 @endsection

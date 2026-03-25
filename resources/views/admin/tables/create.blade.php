@@ -2,17 +2,27 @@
 
 @section('content')
 
-<h2 class="text-2xl font-bold">Add Table</h2>
+    <div class="bg-white shadow rounded-xl p-8 max-w-2xl">
 
-<form method="POST" action="{{ route('tables.store') }}">
-    @csrf
 
-    <label>Table Number</label>
+        <div class="p-4 sm:p-6 opacity-0 animate-fadeIn">
 
-    <input type="text" name="table_number">
+            <h2 class="text-2xl font-bold mb-6">Add Table</h2>
+            <br>
 
-    <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg" type="submit">Save</button>
+            <form method="POST" action="{{ route('tables.store') }}">
+                @csrf
 
-</form>
+                <label class="block mb-2 font-medium">Table Number</label>
 
+                <input class="border rounded-lg w-full p-2 mb-4" type="text" name="table_number">
+                <br>
+                <br>
+                <button class="bg-primary hover:bg-primary text-white px-4 py-2 rounded-lg font-medium"
+                    type="submit">Save</button>
+
+            </form>
+
+        </div>
+    </div>
 @endsection
