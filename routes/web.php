@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\MenuItemController;
+use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Customer\MenuController;
 use App\Http\Controllers\Customer\OrderController;
@@ -107,7 +108,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
+// require __DIR__ . '/auth.php';
+
+//Customized Login
+
+// login
+
+
+Route::get('/login', [AdminLoginController::class, 'showLogin'])->name('login');
+Route::post('/login', [AdminLoginController::class, 'login']);
+
+// logout
+Route::post('/logout', [AdminLoginController::class, 'logout'])->name('logout');
 
 
 

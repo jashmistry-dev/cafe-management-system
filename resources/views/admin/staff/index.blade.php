@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="p-4 sm:p-6 opacity-0 animate-fadeIn">   
+    <div class="p-4 sm:p-6 opacity-0 animate-fadeIn">
         <h2 class="text-2xl font-bold mb-6">Staff Management</h2>
 
         <a class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-bold"
@@ -18,10 +18,7 @@
             <table class="min-w-full text-left">
 
                 <thead class="bg-gray-100">
-                    <!-- <tr >
-                               <th class="px-6 py-3 text-l font-semibold">Total Staff: {{ $staff->count() }}</th> 
-
-                            </tr> -->
+                    
                     <tr>
                         <th class="px-6 py-3 text-sm fontbold">Staff ID</th>
                         <th class="px-6 py-3 text-sm font-bold">Staff Name</th>

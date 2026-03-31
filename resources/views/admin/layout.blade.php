@@ -78,21 +78,14 @@
                     <a href="/admin/analytics"
                         class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-bold">Analytics</a>
 
-                    <a href="/dashboard"  class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-bold">
-                        Dashboard
-                    </a>
-
+                    
                     <form class="px-4 py-2" method="POST" action="{{ route('logout') }}">
                         @csrf
 
                         <a class="bg-danger hover:bg-primarydark text-white px-4 py-2 rounded-lg font-bold"
                             href="route('logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();">{{ __('Log Out') }}</a>
-                        <!-- <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-dropdown-link> -->
+                      
                     </form>
 
                 </div>

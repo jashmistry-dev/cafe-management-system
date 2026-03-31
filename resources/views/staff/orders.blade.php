@@ -53,12 +53,12 @@
                     </h3>
 
                     <span class="text-2xl bg-gray-100 px-3 py-1 rounded-full">
-                      <b>#{{ $order->id }}</b>  
+                        <b>#{{ $order->id }}</b>
                     </span>
                 </div>
 
                 <div class="space-y-2 mb-4">
-                     <h3 class="text-xl font-semibold text-gray-800">
+                    <h3 class="text-xl font-semibold text-gray-800">
                         Ordered Items:
                     </h3>
                     @foreach($order->items as $item)
@@ -71,12 +71,12 @@
 
                 <div class="mb-4">
                     <span class="px-3 py-1 rounded-full text-sm
-                                        @if($order->status == 'pending') bg-yellow-100 text-yellow-700
-                                        @elseif($order->status == 'preparing') bg-orange-100 text-orange-700
-                                        @elseif($order->status == 'ready') bg-green-100 text-green-700
-                                        @else bg-gray-200 text-gray-700
-                                        @endif
-                                     ">
+                                                @if($order->status == 'pending') bg-yellow-100 text-yellow-700
+                                                @elseif($order->status == 'preparing') bg-orange-100 text-orange-700
+                                                @elseif($order->status == 'ready') bg-green-100 text-green-700
+                                                @else bg-gray-200 text-gray-700
+                                                @endif
+                                             ">
                         {{ ucfirst($order->status) }}
                     </span>
                 </div>
@@ -85,10 +85,10 @@
                     @csrf
 
                     <select name="status" class="flex-1 border border-gray-300 rounded-lg px-3 py-2">
-                        <option value="pending">Pending</option>
-                        <option value="preparing">Preparing</option>
-                        <option value="ready">Ready</option>
-                        <option value="completed">Completed</option>
+                        <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                        <option value="preparing" {{ $order->status == 'preparing' ? 'selected' : '' }}>Preparing</option>
+                        <option value="ready" {{ $order->status == 'ready' ? 'selected' : '' }}>Ready</option>
+                        <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>Completed</option>
                     </select>
 
                     <button class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg">
