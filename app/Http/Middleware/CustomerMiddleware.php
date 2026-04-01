@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class StaffMiddleware
+class CustomerMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,14 +17,16 @@ class StaffMiddleware
     public function handle($request, Closure $next)
     {
 
-        if (!auth()->check()) {
-            return redirect()->route('login');
-        }
+       
 
-        if (auth()->user()->role !== 'staff') {
+        if (auth()->user()) {
             Auth::logout();
-            return redirect('/login')->with('error', 'Unauthorized Access!');; 
+            return redirect('/login')->with('error', 'Unauthorized Access!'); 
+        }else{
+            return $next($request);
+
         }
-        return $next($request);
+        
+
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Auth;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,9 +21,11 @@ class AdminMiddleware
         if (!auth()->check()) {
             return redirect()->route('login'); // 👈 FIX
         }
-        
+
         if (auth()->user()->role !== 'admin') {
-            abort(403);
+            Auth::logout();
+            return redirect('/login')->with('error', 'Unauthorized Access!');; // 👈 FIX
+
         }
 
         return $next($request);

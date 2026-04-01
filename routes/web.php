@@ -26,14 +26,14 @@ Route::get('/', function () {
 
 //cart
 
-Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
-Route::get('/cart', [CartController::class, 'view'])->name('cart.view');
-Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add')->middleware('customer');
+Route::get('/cart', [CartController::class, 'view'])->name('cart.view')->middleware('customer');
+Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove')->middleware('customer');
 
-Route::get('/table/{table}', [MenuController::class, 'showMenu']);
+Route::get('/table/{table}', [MenuController::class, 'showMenu'])->middleware('customer');
 
 //after added to cart place an order
-Route::post('/order/place', [OrderController::class, 'place'])->name('order.place');
+Route::post('/order/place', [OrderController::class, 'place'])->name('order.place')->middleware('customer');
 
 //for staff
 Route::prefix('staff')->middleware(['auth', 'staff'])->group(function () {
@@ -59,10 +59,10 @@ Route::prefix('staff')->middleware(['auth', 'staff'])->group(function () {
 
 });
 
-Route::get('/order/{order}', [OrderController::class, 'status'])->name('order.status');
+Route::get('/order/{order}', [OrderController::class, 'status'])->name('order.status')->middleware('customer');
 
 //For auto updating order status to customer
-Route::get('/order/{order}/status', [OrderController::class, 'checkStatus']);
+Route::get('/order/{order}/status', [OrderController::class, 'checkStatus'])->middleware('customer');
 
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
@@ -105,7 +105,7 @@ Route::get('/admin/tables/{table}/qr', [TableController::class, 'downloadQR'])
 
 
 //for invoice generation
-Route::get('/invoice/{order}', [OrderController::class, 'invoice'])->name('order.invoice');
+Route::get('/invoice/{order}', [OrderController::class, 'invoice'])->name('order.invoice')->middleware('customer');
 
 
 //Authentication Breeze 
