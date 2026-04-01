@@ -23,14 +23,19 @@ class AdminLoginController extends Controller
 
         // check user exists + password match
         if ($user && Hash::check($request->password, $user->password)) {
-
-            Auth::login($user);
-
-            // role redirect
-            if ($user->role === 'admin') {
-                return redirect('/admin/tables');
+            if ($user->account_status == 0) {
+                return back()->with('error', 'Your account is deactivated');
             } else {
-                return redirect('/staff/orders');
+
+                Auth::login($user);
+
+                // role redirect
+                if ($user->role === 'admin') {
+                    return redirect('/admin/tables');
+                } else {
+
+                    return redirect('/staff/orders');
+                }
             }
         }
 

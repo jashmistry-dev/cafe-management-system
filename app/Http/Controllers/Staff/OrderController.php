@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
@@ -23,7 +24,7 @@ class OrderController extends Controller
     {
         $menuItems = MenuItem::where('is_available', 1)->get();
 
-        return view('staff.menu',compact('menuItems'));
+        return view('staff.menu', compact('menuItems'));
     }
 
 
@@ -33,5 +34,19 @@ class OrderController extends Controller
         $order->save();
 
         return back()->with('success', 'Status updated');
+    }
+    public function history()
+    {
+        $orders = Order::with('customer')
+            ->withCount([
+                'items as total_items' => function ($q) {
+                    $q->select(DB::raw("SUM(quantity)"));
+                }
+            ])
+            ->withSum('items as total_amount', DB::raw('price * quantity'))
+            ->orderBy('id', 'asc') // ascending order
+            ->get();
+
+        return view('staff.history', compact('orders'));
     }
 }

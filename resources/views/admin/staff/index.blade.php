@@ -18,12 +18,13 @@
             <table class="min-w-full text-left">
 
                 <thead class="bg-gray-100">
-                    
+
                     <tr>
                         <th class="px-6 py-3 text-sm fontbold">Staff ID</th>
                         <th class="px-6 py-3 text-sm font-bold">Staff Name</th>
                         <th class="px-6 py-3 text-sm font-bold">Staff Email</th>
                         <th class="px-6 py-3 text-sm font-bold">Staff Mobile No.</th>
+                        <th class="px-6 py-3 text-sm font-bold">Staff Status</th>
                         <th class="px-6 py-3 text-sm font-bold text-center">Staff Actions</th>
                     </tr>
                 </thead>
@@ -39,6 +40,19 @@
                             <td class="px-6 py-3 font-medium">{{ $user->name }}</td>
                             <td class="px-6 py-3">{{ $user->email }}</td>
                             <td class="px-6 py-3">{{ $user->mobile }}</td>
+                            <td class="px-6 py-3">
+                                <form method="POST" action="{{ route('staff.toggle', $user->id) }}">
+                                    @csrf
+
+                                    <button
+                                        class="px-2 py-1 rounded font-bold text-m transition 
+                                                     {{ $user->account_status ? 'bg-green-500 text-white hover:bg-green-600' : 'bg-red-500 text-white hover:bg-red-600' }}">
+
+                                        {{ $user->account_status ? 'Active' : 'In-Active' }}
+
+                                    </button>
+                                </form>
+                            </td>
 
                             <td class="px-6 py-3 text-center space-x-2">
 

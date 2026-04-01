@@ -61,4 +61,16 @@ class CategoryController extends Controller
         return redirect()->route('categories.index')
             ->with('success', 'Category deleted successfully');
     }
+
+    public function toggle($id)
+    {
+        $category = Category::findOrFail($id);
+
+        // 🔥 toggle logic
+        $category->status = $category->status ? 0 : 1;
+
+        $category->save();
+
+        return back();
+    }
 }

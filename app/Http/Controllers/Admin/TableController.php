@@ -71,4 +71,16 @@ class TableController extends Controller
             ->header('Content-Disposition', 'attachment; filename="table-' . $table->table_number . '.svg"');
     }
 
+    public function toggle($id)
+    {
+        $table = Table::findOrFail($id);
+
+        // toggle logic 🔥
+        $table->status = $table->status ? 0 : 1;
+
+        $table->save();
+
+        return back();
+    }
+
 }

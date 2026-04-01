@@ -12,11 +12,15 @@
 
     <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
 
-        
-        <h2 class="text-2xl font-bold text-center mb-6 text-orange-600">
-            ☕ Cafe Login
-        </h2>
 
+        <h2 class="text-2xl font-bold text-center mb-6 text-orange-600">
+            Cafe System Login
+        </h2>
+        @if(session('error'))
+            <div class="bg-red-100 text-red-700 p-3 rounded mb-4 text-center">
+                {{ session('error') }}
+            </div>
+        @endif
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
@@ -35,7 +39,7 @@
                 {{ $errors->first() }}
             </p>
         @endif
-        
+
 
     </div>
 

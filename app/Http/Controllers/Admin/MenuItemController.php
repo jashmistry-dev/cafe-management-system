@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use DB;
 use Illuminate\Http\Request;
 use App\Models\MenuItem;
 use App\Models\Category;
@@ -102,5 +104,29 @@ class MenuItemController extends Controller
         $menuItem->delete();
 
         return redirect()->route('menu-items.index');
+    }
+
+    public function toggle($id)
+    {
+        $item = MenuItem::findOrFail($id);
+        $item->status = !$item->status;
+        $item->save();
+
+        return back();
+    }
+
+    public function history()
+    {
+        $orders = Order::with('customer')
+            ->withCount([
+                'items as total_items' => function ($q) {
+                    $q->select(DB::raw("SUM(quantity)"));
+                }
+            ])
+            ->withSum('items as total_amount', DB::raw('price * quantity'))
+            ->orderBy('id', 'asc') // ascending order
+            ->get();
+
+        return view('admin.menu_items.history', compact('orders'));
     }
 }

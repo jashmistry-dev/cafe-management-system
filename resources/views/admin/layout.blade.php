@@ -51,7 +51,6 @@
 
                 <div class="flex items-center gap-3">
 
-                    <span class="text-2xl">☕</span>
 
                     <h1 class="font-bold text-lg">
                         CafeOS Admin
@@ -77,6 +76,9 @@
 
                     <a href="/admin/analytics"
                         class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-bold">Analytics</a>
+                    
+                        <a href="{{ route("orders.history") }}"
+                        class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-bold">Orders history</a>
 
                     
                     <form class="px-4 py-2" method="POST" action="{{ route('logout') }}">

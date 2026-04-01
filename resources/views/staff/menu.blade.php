@@ -9,7 +9,8 @@
     <div class="grid md:grid-cols-3 gap-8">
 
         @foreach($menuItems as $item)
-
+            @if ($item->status === 1)
+            
             <div class="bg-white rounded-xl shadow-md overflow-hidden">
 
                 <img src="{{ asset('storage/' . $item->image) }}" class="w-full h-48 object-cover">
@@ -30,6 +31,7 @@
 
             </div>
 
+            @endif
         @endforeach
 
     </div>

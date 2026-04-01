@@ -16,11 +16,12 @@
 
             @foreach($menuItems as $item)
 
+              
                 <div class="bg-white shadow rounded-xl overflow-hidden">
 
                     @if($item->image)
 
-                        <img src="{{ asset('storage/' . $item->image) }}" class="h-40 w-full object-cover">
+                        <img src="{{ asset('storage/' . $item->image) }}" class="h-14 w-full object-cover">
 
                     @endif
 
@@ -37,21 +38,28 @@
                         <br>
 
 
-
-
-                        <form action="{{ route('menu-items.destroy', $item->id) }}" method="POST">
+                        <form method="POST" action="{{ route('menu.toggle', $item->id) }}">
+                            @csrf
+                            Item Status :
+                            <button class="px-2 py-1 rounded font-bold
+                                {{ $item->status ? 'bg-green-500 hover:bg-green-600' : 'bg-red-500 hover:bg-red-600 ' }} text-white">
+                                {{ $item->status ? 'Active' : 'In-Active' }}
+                            </button>
+                        </form>
+                        
+                        <form class="my-3 " action="{{ route('menu-items.destroy', $item->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
 
                             <a class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
                                 href="{{ route('menu-items.edit', $item->id) }}">Edit</a>
-                            <button class="bg-red-500 text-white px-3 py-1 rounded" type="submit">Delete</button>
+                            <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded" type="submit">Delete</button>
                         </form>
 
                     </div>
 
                 </div>
-
+               
             @endforeach
 
         </div>

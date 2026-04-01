@@ -60,7 +60,7 @@ class StaffController extends Controller
             'email' => 'required|email|unique:users,email,' . $id,
             'mobile' => 'required'
         ]);
-        
+
         if ($request->filled('password')) {
             $staff->password = Hash::make($request->password);
         }
@@ -84,5 +84,17 @@ class StaffController extends Controller
 
         return redirect()->route('staff.index')
             ->with('success', 'Staff deleted successfully');
+    }
+
+    public function toggle($id)
+    {
+        $staff = User::findOrFail($id);
+
+        // toggle logic 🔥
+        $staff->account_status = $staff->account_status ? 0 : 1;
+
+        $staff->save();
+
+        return back();
     }
 }

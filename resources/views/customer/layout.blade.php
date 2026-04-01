@@ -18,7 +18,7 @@
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between">
 
             <h1 class="text-xl font-bold text-gray-800">
-                ☕ Cafe Ordering
+                Cafe Ordering
             </h1>
 
             <div class="space-x-6">

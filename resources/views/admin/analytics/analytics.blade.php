@@ -7,7 +7,7 @@
 
 
         <!-- Header -->
-        <h2 class="text-2xl font-bold mb-6">📊 Analytics Dashboard</h2>
+        <h2 class="text-2xl font-bold mb-6">Analytics Dashboard</h2>
 
         <!-- Filters -->
         <div class="flex flex-col sm:flex-row justify-between mb-6 gap-3">
@@ -57,7 +57,7 @@
 
         <!-- Chart -->
         <div class="bg-white p-6 rounded-xl shadow mb-8">
-            <h3 class="text-lg font-bold mb-4">📈 Revenue Trend</h3>
+            <h3 class="text-lg font-bold mb-4">Revenue Trend</h3>
             <canvas id="revenueChart"></canvas>
         </div>
 

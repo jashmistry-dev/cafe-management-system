@@ -11,29 +11,32 @@
                 @csrf
 
                 <label class="block mb-2 font-medium">Name</label>
-                <input  class="border rounded-lg w-full p-2 mb-4" type="text" name="name" placeholder="Pizza">
+                <input class="border rounded-lg w-full p-2 mb-4" type="text" name="name" placeholder="Pizza">
 
                 <div class="mb-4">
 
                     <label class="block mb-2 font-medium">Food Image</label>
 
-                    <input  class="border rounded-lg w-full p-2 mb-4"  type="file" name="image" >
+                    <input class="border rounded-lg w-full p-2 mb-4" type="file" name="image">
 
                 </div>
 
 
                 <label class="block mb-2 font-medium">Price</label>
-                <input  class="border rounded-lg w-full p-2 mb-4"  type="number" name="price" placeholder="899">
+                <input class="border rounded-lg w-full p-2 mb-4" type="number" name="price" placeholder="899">
 
                 <br><br>
 
                 <label class="block mb-2 font-medium">Category</label>
-                <select  class="border rounded-lg w-full p-2 mb-4"  name="category_id">
+                <select class="border rounded-lg w-full p-2 mb-4" name="category_id">
 
                     @foreach($categories as $category)
-                        <option value="{{ $category->id }}">
-                            {{ $category->name }}
-                        </option>
+                        @if ($category->status === 1)
+
+                            <option value="{{ $category->id }}">
+                                {{ $category->name }}
+                            </option>
+                        @endif
                     @endforeach
 
                 </select>

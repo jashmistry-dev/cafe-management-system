@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\MenuItemController;
@@ -38,17 +39,19 @@ Route::post('/order/place', [OrderController::class, 'place'])->name('order.plac
 Route::prefix('staff')->middleware(['auth', 'staff'])->group(function () {
     Route::get('/orders', [StaffOrderController::class, 'index'])->name('staff.orders');
 
+    Route::get('/orders/history', [StaffOrderController::class, 'history'])->name('staff.history');
+
     Route::post('/orders/{order}/status', [StaffOrderController::class, 'updateStatus'])->name('staff.order.status');
     Route::get('/menu', [StaffOrderController::class, 'showMenu']);
 
     // ✅ latest order (for sound)
     Route::get('/orders/latest', function () {
-        return \App\Models\Order::latest()->first();
+        return Order::latest()->first();
     });
 
     // ✅ live orders (for UI refresh)
     Route::get('/orders/live', function () {
-        return \App\Models\Order::with('table', 'items.menuItem')
+        return Order::with('table', 'items.menuItem')
             ->latest()
             ->take(10)
             ->get();
@@ -73,6 +76,20 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('analytics', [AnalyticsController::class, 'index'])
         ->name('admin.analytics');
 
+
+
+    Route::post('/categories/{id}/toggle', [CategoryController::class, 'toggle'])
+        ->name('categories.toggle');
+
+    Route::post('/menu-items/{id}/toggle', [MenuItemController::class, 'toggle'])
+        ->name('menu.toggle');
+
+    Route::post('/staff/{id}/toggle', [StaffController::class, 'toggle'])->name('staff.toggle');
+
+    Route::post('/tables/{id}/toggle', [TableController::class, 'toggle'])->name('tables.toggle');
+
+
+    Route::get('/orders/history', [MenuItemController::class, 'history'])->name('orders.history');
 
 
 });

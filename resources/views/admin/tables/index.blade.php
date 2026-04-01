@@ -42,7 +42,16 @@
                     </a>
                     <br>
                     <br>
-                    <form method="POST" action="{{ route('tables.destroy', $table->id) }}">
+                    <form method="POST" action="{{ route('tables.toggle', $table->id) }}">
+                        @csrf
+                        Table Status :
+                        <button
+                            class="px-2 py-1 rounded font-bold
+                                        {{ $table->status ? 'bg-green-500 hover:bg-green-600' : 'bg-red-500 hover:bg-red-600 ' }} text-white">
+                            {{ $table->status ? 'Active' : 'In-Active' }}
+                        </button>
+                    </form>
+                    <form class="my-2" method="POST" action="{{ route('tables.destroy', $table->id) }}">
                         @csrf
                         @method('DELETE')
 

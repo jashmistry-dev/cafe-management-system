@@ -61,6 +61,10 @@
                         Customer Menu
                     </a>
 
+                    <a href="{{ route("staff.history") }}" class="bg-primary hover:bg-primarydark text-white px-4 py-2 rounded-lg font-bold">
+                        Order history
+                    </a>
+
                     
 
                       <form class="px-4 py-2" method="POST" action="{{ route('logout') }}">

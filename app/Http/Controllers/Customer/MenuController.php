@@ -12,12 +12,19 @@ class MenuController extends Controller
     {
         $table = Table::findOrFail($table);
 
-        $table_ID = $table->id;
+        if ($table->status === 0) {
+            return back()->with('error', 'This table is deactivated');
 
-        $menuItems = MenuItem::where('is_available', 1)->get();
+        } else {
 
-        session(['table_id'=> $table_ID]);
+            $table_ID = $table->id;
 
-        return view('customer.menu', compact('menuItems', 'table'));
+            $menuItems = MenuItem::where('is_available', 1)->get();
+
+            session(['table_id' => $table_ID]);
+
+            return view('customer.menu', compact('menuItems', 'table'));
+
+        }
     }
 }
