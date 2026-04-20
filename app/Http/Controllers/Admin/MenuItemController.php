@@ -124,7 +124,7 @@ class MenuItemController extends Controller
                 }
             ])
             ->withSum('items as total_amount', DB::raw('price * quantity'))
-            ->orderBy('id', 'asc') // ascending order
+            ->orderBy('id', 'desc') // ascending order
             ->get();
 
         return view('admin.menu_items.history', compact('orders'));

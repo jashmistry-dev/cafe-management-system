@@ -64,11 +64,11 @@ class TableController extends Controller
 
         $qr = QrCode::format('svg')
             ->size(300)
-            ->generate(url('/table/' . $table->table_number));
+            ->generate(url('/table/' . $table->id));
 
         return response($qr)
-            ->header('Content-Type', 'image/png')
-            ->header('Content-Disposition', 'attachment; filename="table-' . $table->table_number . '.svg"');
+            ->header('Content-Type', 'image/svg+xml')
+            ->header('Content-Disposition', 'attachment; filename="table-' . $table->id . '.svg"');
     }
 
     public function toggle($id)

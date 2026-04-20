@@ -10,19 +10,14 @@ use App\Http\Controllers\Customer\MenuController;
 use App\Http\Controllers\Customer\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Staff\OrderController as StaffOrderController;
-
 use App\Http\Controllers\Admin\TableController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\AnalyticsController;
 
 
-
 Route::get('/', function () {
     return redirect("/login");
 });
-
-
-
 
 //cart
 
@@ -56,7 +51,6 @@ Route::prefix('staff')->middleware(['auth', 'staff'])->group(function () {
             ->take(10)
             ->get();
     });
-
 });
 
 Route::get('/order/{order}', [OrderController::class, 'status'])->name('order.status')->middleware('customer');
@@ -76,8 +70,6 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('analytics', [AnalyticsController::class, 'index'])
         ->name('admin.analytics');
 
-
-
     Route::post('/categories/{id}/toggle', [CategoryController::class, 'toggle'])
         ->name('categories.toggle');
 
@@ -88,9 +80,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
     Route::post('/tables/{id}/toggle', [TableController::class, 'toggle'])->name('tables.toggle');
 
-
     Route::get('/orders/history', [MenuItemController::class, 'history'])->name('orders.history');
-
 
 });
 

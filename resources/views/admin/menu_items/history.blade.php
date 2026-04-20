@@ -3,15 +3,9 @@
 @section('content')
 
 
-
-
-
-
-
     <!-- ✅ ONLY ONE CONTAINER -->
 
-
-    <h2 class="text-2xl font-bold mb-6">📜 Order History</h2>
+    <h2 class="text-2xl font-bold mb-6">Order History</h2>
 
     <div class="overflow-x-auto bg-white rounded-xl shadow">
 

@@ -97,7 +97,7 @@
                         class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none" required>
 
                     <button class="w-full bg-primary hover:bg-primarydark text-white py-3 rounded-lg font-semibold">
-                        🚀 Place Order
+                        Place Order
                     </button>
 
                 </form>

@@ -32,7 +32,7 @@
                     <br>
                     <div class="flex items-center justify-center">
 
-                        {!! QrCode::size(100)->generate(url('/table/' . $table->table_number)) !!}
+                        {!! QrCode::size(100)->generate(url('/table/' . $table->id)) !!}
 
                     </div>
                     <br>

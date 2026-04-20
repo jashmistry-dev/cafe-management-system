@@ -44,7 +44,7 @@ class OrderController extends Controller
                 }
             ])
             ->withSum('items as total_amount', DB::raw('price * quantity'))
-            ->orderBy('id', 'asc') // ascending order
+            ->orderBy('id', 'desc') // ascending order
             ->get();
 
         return view('staff.history', compact('orders'));
