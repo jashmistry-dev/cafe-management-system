@@ -1,7 +1,7 @@
 @extends('customer.layout')
 
 @section('content')
-<script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/countup.js@2.6.2/dist/countUp.umd.js"></script>
     <script>
@@ -39,10 +39,9 @@
 
                 @php $total = 0; @endphp
 
-                <!-- Items -->
                 <div class="space-y-4 mb-6">
 
-                    @foreach($cart as $item)
+                    @foreach($cart as $index => $item)
 
                         @php
                             $subtotal = $item['price'] * $item['quantity'];
@@ -55,17 +54,43 @@
                                 class="w-16 h-16 rounded-lg object-cover">
 
                             <div class="flex-1">
-
                                 <h3 class="font-semibold">{{ $item['name'] }}</h3>
-
                                 <p class="text-sm text-gray-500">
-                                    ₹ {{ $item['price'] }} × {{ $item['quantity'] }}
+                                    ₹ {{ $item['price'] }}
                                 </p>
+                            </div>
+
+                            <div class="flex items-center gap-2">
+
+                                <form method="POST" action="{{ route('cart.decrease') }}">
+                                    @csrf
+                                    <input type="hidden" name="index" value="{{ $index }}">
+                                    <button class="bg-gray-200 px-3 py-1 rounded">-</button>
+                                </form>
+
+                                <span class="font-bold w-6 text-center">{{ $item['quantity'] }}</span>
+
+                                <form method="POST" action="{{ route('cart.increase') }}">
+                                    @csrf
+                                    <input type="hidden" name="index" value="{{ $index }}">
+                                    <button class="bg-primary text-white px-3 py-1 rounded">+</button>
+                                </form>
 
                             </div>
 
-                            <div class="text-right font-semibold text-primary">
-                                ₹ {{ $subtotal }}
+                            <div class="text-right">
+
+                                <p class="font-semibold text-primary">
+                                    ₹ {{ $subtotal }}
+                                </p>
+
+                                <!-- DELETE -->
+                                <form method="POST" action="{{ route('cart.remove') }}">
+                                    @csrf
+                                    <input type="hidden" name="index" value="{{ $index }}">
+                                    <button class="text-red-500 text-sm mt-1">Remove</button>
+                                </form>
+
                             </div>
 
                         </div>
@@ -74,7 +99,6 @@
 
                 </div>
 
-                <!-- Total -->
                 <div class="flex justify-between items-center border-t pt-4 mb-6">
 
                     <span class="text-lg font-semibold">Total</span>
@@ -85,7 +109,6 @@
 
                 </div>
 
-                <!-- Customer Form -->
                 <form method="POST" action="{{ route('order.place') }}" class="space-y-4">
 
                     @csrf
@@ -95,7 +118,21 @@
 
                     <input type="text" name="mobile" placeholder="Mobile Number"
                         class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary outline-none" required>
+                    <div class="mb-4">
+                        <label class="font-semibold">Payment Method</label>
 
+                        <div class="flex gap-4 mt-2">
+                            <label class="flex items-center gap-2">
+                                <input type="radio" name="payment_method" value="online" checked>
+                                Online
+                            </label>
+
+                            <label class="flex items-center gap-2">
+                                <input type="radio" name="payment_method" value="cash">
+                                Cash
+                            </label>
+                        </div>
+                    </div>
                     <button class="w-full bg-primary hover:bg-primarydark text-white py-3 rounded-lg font-semibold">
                         Place Order
                     </button>
@@ -105,7 +142,7 @@
             @endif
 
         </div>
-        
+
 
     </div>
 

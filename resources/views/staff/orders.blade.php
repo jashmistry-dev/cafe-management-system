@@ -9,13 +9,22 @@
 
 
 
-    <!-- ✅ ONLY ONE CONTAINER -->
     <div id="ordersContainer" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         @forelse($orders as $order)
+
+
 
             <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
 
 
+                @if($order->payment_method === 'cash' && $order->payment_status === 'pending')
+                    <form method="POST" action="{{ route('staff.order.pay', $order->id) }}">
+                        @csrf
+                        <button class="bg-green-500 text-white px-4 py-2 rounded-lg">
+                            Mark Paid
+                        </button>
+                    </form>
+                @endif
 
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-xl font-semibold text-gray-800">
@@ -40,16 +49,18 @@
                 </div>
 
                 <div class="mb-4">
-                    <span class="px-3 py-1 rounded-full text-sm
-                                                                                                                    @if($order->status == 'pending') bg-yellow-100 text-yellow-700
-                                                                                                                    @elseif($order->status == 'preparing') bg-orange-100 text-orange-700
-                                                                                                                    @elseif($order->status == 'ready') bg-green-100 text-green-700
-                                                                                                                    @else bg-gray-200 text-gray-700
-                                                                                                                    @endif
-                                                                                                                 ">
+                    <span
+                        class="px-3 py-1 rounded-full text-sm font-bold bg-orange-300
+                                                                                                                                            @if($order->status == 'pending') bg-yellow-100 text-yellow-700
+                                                                                                                                            @elseif($order->status == 'preparing') bg-orange-100 text-orange-700
+                                                                                                                                            @elseif($order->status == 'ready') bg-green-100 text-green-700
+                                                                                                                                            @else bg-gray-200 text-gray-700
+                                                                                                                                            @endif
+                                                                                                                                         ">
                         {{ ucfirst($order->status) }}
                     </span>
                 </div>
+
 
                 <form method="POST" action="{{ route('staff.order.status', $order->id) }}" class="flex gap-3">
                     @csrf
@@ -103,10 +114,6 @@
 
                 if (data.id > lastOrderId) {
 
-                    // 🔔 PLAY SOUND ONLY IF ENABLED
-
-
-                    // reload page
                     location.reload();
 
                     lastOrderId = data.id;
@@ -117,7 +124,6 @@
             }
         }
 
-        // faster refresh
         setInterval(checkNewOrder, 3000);
     </script>
 

@@ -115,17 +115,53 @@ class MenuItemController extends Controller
         return back();
     }
 
-    public function history()
+
+
+
+    public function history(Request $request)
     {
-        $orders = Order::with('customer')
-            ->withCount([
-                'items as total_items' => function ($q) {
-                    $q->select(DB::raw("SUM(quantity)"));
-                }
-            ])
-            ->withSum('items as total_amount', DB::raw('price * quantity'))
-            ->orderBy('id', 'desc') // ascending order
-            ->get();
+        $query = Order::with(['customer', 'items.menuItem']);
+
+        // 🔍 SEARCH
+        if ($request->search) {
+            $query->where(function ($q) use ($request) {
+                $q->where('id', $request->search)
+                    ->orWhereHas('customer', function ($q2) use ($request) {
+                        $q2->where('name', 'like', '%' . $request->search . '%')
+                            ->orWhere('mobile', 'like', '%' . $request->search . '%');
+                    });
+            });
+        }
+
+        // 📅 DATE FILTER
+        if ($request->from_date && $request->to_date) {
+            $query->whereBetween('created_at', [
+                $request->from_date,
+                $request->to_date
+            ]);
+        }
+
+        $orders = $query->latest()->get();
+
+        // 🔥 MANUAL FILTER (IMPORTANT FIX)
+        $orders = $orders->map(function ($order) {
+
+            $order->total_items = $order->items->sum('quantity');
+            $order->total_amount = $order->items->sum(function ($item) {
+                return $item->price * $item->quantity;
+            });
+
+            return $order;
+        });
+
+        // 💰 AMOUNT FILTER (AFTER CALCULATION)
+        if ($request->min_amount) {
+            $orders = $orders->where('total_amount', '>=', $request->min_amount);
+        }
+
+        if ($request->max_amount) {
+            $orders = $orders->where('total_amount', '<=', $request->max_amount);
+        }
 
         return view('admin.menu_items.history', compact('orders'));
     }
