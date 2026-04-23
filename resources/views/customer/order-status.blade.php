@@ -87,20 +87,22 @@
             document.getElementById('statusMessage').innerText = message;
         }
 
-        function checkOrderStatus() {
+            function checkOrderStatus() {
 
-            fetch('/order/{{ $order->id }}/status')
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data); 
-                    updateStatusUI(data.status, data.payment_status);
-                })+ new Date().getTime();
+                fetch('/order/{{ $order->id }}/status?time=' + new Date().getTime())
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log("LIVE DATA:", data); // debug
+                        updateStatusUI(data.status, data.payment_status);
+                    })
+                    .catch(err => console.error(err));
 
-        }
+    }
 
-        updateStatusUI("{{ $order->status }}", "{{ $order->payment_status }}");
 
-        setInterval(checkOrderStatus, 5000);
+    updateStatusUI("{{ $order->status }}", "{{ $order->payment_status }}");
+
+    setInterval(checkOrderStatus, 5000);
 
     </script>
 

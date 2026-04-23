@@ -9,7 +9,6 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
 
-
 </head>
 
 <body class="bg-gray-100">
@@ -68,7 +67,7 @@
 
                 <a href="{{ route('order.invoice', session('last_order_id')) }}"
                     class="flex flex-col items-center text-sm text-gray-600">
-                     📦
+                    📦
                     <span>My Order</span>
                 </a>
             @endif

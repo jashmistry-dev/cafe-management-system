@@ -31,6 +31,9 @@ class OrderController extends Controller
     public function updateStatus(Request $request, Order $order)
     {
         $order->status = $request->status;
+        if ($request->status === 'pending') {
+            $order->payment_status = 'paid';
+        }
         $order->save();
 
         return back()->with('success', 'Status updated');
@@ -85,12 +88,11 @@ class OrderController extends Controller
 
     public function markPaid($id)
     {
-        \DB::table('orders')
-            ->where('id', $id)
-            ->update([
-                'payment_status' => 'paid',
-                'status' => 'pending'
-            ]);
+        $order = Order::findOrFail($id);
+
+        $order->payment_status = 'paid';
+        $order->status = 'pending';
+        $order->save();
 
         return back()->with('success', 'Payment confirmed');
     }

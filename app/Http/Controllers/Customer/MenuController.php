@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Table;
 use App\Models\MenuItem;
 
+use App\Models\Category;
+
 class MenuController extends Controller
 {
     public function showMenu($table)
@@ -19,12 +21,17 @@ class MenuController extends Controller
 
             $table_ID = $table->id;
 
-            $menuItems = MenuItem::where('is_available', 1)->get();
 
             session(['table_id' => $table_ID]);
 
-            return view('customer.menu', compact('menuItems', 'table'));
 
+            $categories = Category::with([
+                'menuItems' => function ($q) {
+                    $q->where('is_available', 1);
+                }
+            ])->get();
+
+            return view('customer.menu', compact('categories', 'table'));
         }
     }
 }
