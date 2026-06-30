@@ -1,3 +1,4 @@
+# ---------- Build Stage ----------
 FROM php:8.2-apache
 
 # Install system dependencies
@@ -13,9 +14,11 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     libonig-dev \
     libxml2-dev \
-    libzip-dev
+    libzip-dev \
+    libicu-dev \
+    libpq-dev
 
-# Install PHP extensions
+# Configure & install PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 
 RUN docker-php-ext-install \
@@ -23,11 +26,13 @@ RUN docker-php-ext-install \
     pdo \
     pdo_mysql \
     mysqli \
-    zip \
     mbstring \
     exif \
-    pcntl
-# Enable Apache rewrite
+    zip \
+    intl \
+    bcmath
+
+# Enable Apache Rewrite
 RUN a2enmod rewrite
 
 # Install Composer
@@ -35,27 +40,43 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
+# Copy composer files first (better Docker cache)
+COPY composer.json composer.lock ./
+
+RUN composer install \
+    --no-dev \
+    --optimize-autoloader \
+    --no-interaction \
+    --prefer-dist
+
+# Copy remaining project files
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader
-
+# Install Node packages & build assets
 RUN npm install
 RUN npm run build
 
-RUN cp .env.example .env || true
+# Create Laravel directories
+RUN mkdir -p storage/framework/cache
+RUN mkdir -p storage/framework/sessions
+RUN mkdir -p storage/framework/views
+RUN mkdir -p storage/logs
 
-RUN php artisan storage:link || true
-
+# Permissions
 RUN chown -R www-data:www-data storage bootstrap/cache
+RUN chmod -R 775 storage bootstrap/cache
 
-RUN echo '<VirtualHost *:80>\n\
-DocumentRoot /var/www/html/public\n\
-<Directory /var/www/html/public>\n\
-AllowOverride All\n\
-Require all granted\n\
-</Directory>\n\
+# Apache Virtual Host
+RUN echo '<VirtualHost *:80>\
+DocumentRoot /var/www/html/public\
+<Directory /var/www/html/public>\
+AllowOverride All\
+Require all granted\
+</Directory>\
 </VirtualHost>' > /etc/apache2/sites-available/000-default.conf
 
 EXPOSE 80
 
-CMD php artisan migrate --force && apache2-foreground
+RUN chmod +x start.sh
+
+CMD ["./start.sh"]
