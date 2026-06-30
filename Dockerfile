@@ -5,19 +5,28 @@ RUN apt-get update && apt-get install -y \
     git \
     unzip \
     zip \
+    curl \
+    nodejs \
+    npm \
     libpng-dev \
-    libjpeg-dev \
+    libjpeg62-turbo-dev \
     libfreetype6-dev \
     libonig-dev \
     libxml2-dev \
-    libzip-dev \
-    curl \
-    nodejs \
-    npm
+    libzip-dev
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql mysqli zip mbstring exif pcntl
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 
+RUN docker-php-ext-install \
+    gd \
+    pdo \
+    pdo_mysql \
+    mysqli \
+    zip \
+    mbstring \
+    exif \
+    pcntl
 # Enable Apache rewrite
 RUN a2enmod rewrite
 
