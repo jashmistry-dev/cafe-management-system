@@ -1,14 +1,28 @@
-# ---------- Build Stage ----------
+############################
+# Stage 1 - Build Frontend #
+############################
+FROM node:20 AS frontend
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+RUN npm run build
+
+
+############################
+# Stage 2 - PHP / Laravel  #
+############################
 FROM php:8.2-apache
 
-# Install system dependencies
+# Install system packages
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
     zip \
     curl \
-    nodejs \
-    npm \
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
@@ -16,23 +30,26 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libzip-dev \
     libicu-dev \
-    libpq-dev
+    && rm -rf /var/lib/apt/lists/*
 
-# Configure & install PHP extensions
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+# Configure GD
+RUN docker-php-ext-configure gd \
+    --with-freetype \
+    --with-jpeg
 
+# Install PHP extensions
 RUN docker-php-ext-install \
-    gd \
     pdo \
     pdo_mysql \
     mysqli \
+    gd \
     mbstring \
-    exif \
     zip \
+    exif \
     intl \
     bcmath
 
-# Enable Apache Rewrite
+# Enable rewrite
 RUN a2enmod rewrite
 
 # Install Composer
@@ -40,43 +57,42 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-# Copy composer files first (better Docker cache)
-COPY composer.json composer.lock ./
-
-RUN composer install \
-    --no-dev \
-    --optimize-autoloader \
-    --no-interaction \
-    --prefer-dist
-
-# Copy remaining project files
+# Copy Laravel project
 COPY . .
 
-# Install Node packages & build assets
-RUN npm install
-RUN npm run build
+# Copy compiled frontend
+COPY --from=frontend /app/public/build ./public/build
 
-# Create Laravel directories
-RUN mkdir -p storage/framework/cache
-RUN mkdir -p storage/framework/sessions
-RUN mkdir -p storage/framework/views
-RUN mkdir -p storage/logs
+# Install PHP packages
+RUN composer install \
+    --no-dev \
+    --prefer-dist \
+    --optimize-autoloader \
+    --no-interaction
+
+# Storage folders
+RUN mkdir -p storage/framework/cache \
+    storage/framework/sessions \
+    storage/framework/views \
+    storage/logs
 
 # Permissions
 RUN chown -R www-data:www-data storage bootstrap/cache
-RUN chmod -R 775 storage bootstrap/cache
 
-# Apache Virtual Host
-RUN echo '<VirtualHost *:80>\
-DocumentRoot /var/www/html/public\
-<Directory /var/www/html/public>\
-AllowOverride All\
-Require all granted\
-</Directory>\
-</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
+# Apache configuration
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' \
+/etc/apache2/sites-available/000-default.conf
+
+RUN printf '<Directory /var/www/html/public>\n\
+AllowOverride All\n\
+Require all granted\n\
+</Directory>\n' \
+>> /etc/apache2/apache2.conf
+
+# Startup script
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
 
 EXPOSE 80
 
-RUN chmod +x start.sh
-
-CMD ["./start.sh"]
+CMD ["/usr/local/bin/start.sh"]

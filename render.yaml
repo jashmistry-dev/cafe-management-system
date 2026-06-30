@@ -2,7 +2,5 @@ services:
   - type: web
     name: cafe-management-system
     runtime: docker
-    plan: free
     dockerfilePath: ./Dockerfile
-
-    
+    plan: free

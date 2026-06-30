@@ -1,5 +1,6 @@
 .git
 .github
+
 vendor
 node_modules
 
@@ -12,4 +13,8 @@ storage/framework/sessions/*
 storage/framework/views/*
 
 tests
+
 README.md
+
+Dockerfile
+docker-compose.yml
